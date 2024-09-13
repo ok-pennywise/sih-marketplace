@@ -1,7 +1,6 @@
 from ninja import NinjaAPI
-from farmers.routes import router as farmer_router
+from users.routes import router as user_router
 
 api = NinjaAPI()
-api.add_router("/farmers/", farmer_router)
 
-
+api.add_router("/users/", user_router)

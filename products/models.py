@@ -1,7 +1,8 @@
+from datetime import datetime
 from django.db import models
 
-from farmers.models import Farmer
-from model_utils import generate_id
+from model_utils import aware_utcnow, generate_id
+from users.models import User
 
 
 class Category(models.Model):
@@ -12,9 +13,11 @@ class Category(models.Model):
 
 
 class Product(models.Model):
-    id: str = models.CharField(max_length=20, default=generate_id)
+    id: str = models.CharField(max_length=20, default=generate_id, primary_key=True)
 
-    farmer: Farmer = models.ForeignKey(Farmer, on_delete=models.CASCADE)
+    created_on: datetime = models.DateTimeField(default=aware_utcnow)
+
+    user: User = models.ForeignKey(User, on_delete=models.CASCADE)
 
     name: str = models.CharField(max_length=256)
     description: str = models.TextField(blank=True, null=True)
@@ -24,12 +27,17 @@ class Product(models.Model):
     min_quantity: int = models.IntegerField(default=1)
     max_quantity: int = models.IntegerField(default=10000)
 
+    stock: int = models.IntegerField(default=0)
+
+    in_stock: bool = models.BooleanField(default=True)
+
     category: str = models.ForeignKey(
         Category, on_delete=models.SET_NULL, null=True, blank=True
     )
 
 
 class ProductImage(models.Model):
+    id: str = models.CharField(max_length=20, default=generate_id, primary_key=True)
     product: Product = models.ForeignKey(
         Product, on_delete=models.CASCADE, related_name="images"
     )

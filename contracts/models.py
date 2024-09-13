@@ -1,30 +1,30 @@
 from datetime import datetime
 from django.db import models
 
-from buyers.models import Buyer
-from farmers.models import Farmer
+
 from model_utils import aware_utcnow, generate_id
+from users.models import User
 
 
 # Create your models here.
 class Contract(models.Model):
 
-    id: str = models.CharField(max_length=20, default=generate_id)
+    id: str = models.CharField(max_length=20, default=generate_id, primary_key=True)
 
-    buyer: Buyer = models.ForeignKey(
-        Buyer,
+    buyer: User = models.ForeignKey(
+        User,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        related_name="contracts",
+        related_name="buyer_contracts",
         editable=False,
     )
-    farmer: Buyer = models.ForeignKey(
-        Farmer,
+    farmer: User = models.ForeignKey(
+        User,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        related_name="contracts",
+        related_name="farmer_contracts",
         editable=False,
     )
 
