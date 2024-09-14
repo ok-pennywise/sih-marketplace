@@ -1,4 +1,4 @@
-from ninja import ModelSchema
+from ninja import ModelSchema, Schema
 
 from users.models import Address, User
 
@@ -34,3 +34,8 @@ class UserOut(ModelSchema):
             "date_of_birth",
             "farm_name",
         )
+
+
+class LoginIn(Schema):
+    query: str
+    password: str

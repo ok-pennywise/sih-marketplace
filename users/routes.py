@@ -1,7 +1,9 @@
 from ninja import Router
-
+from ninja.responses import codes_4xx
+from security.keys import AccessToken
 from users import schemas
 from users.models import Address, User
+from django.db.models import Q
 
 
 router = Router()
@@ -12,12 +14,28 @@ def create_user(request, payload: schemas.UserIn):
     return User.objects.create(**payload.dict())
 
 
-@router.get("/{id}", response={200: schemas.UserOut, 404: None})
+@router.post("/login", response={200: dict, codes_4xx: str})
+def login_user(request, payload: schemas.LoginIn):
+    try:
+        user = User.objects.get(Q(email=payload.query) | Q(phone=payload.query))
+        if user.verify_password(payload.password):
+            access_token = AccessToken.issue(user_id=user.id, user_type=user.user_type)
+            refresh_token = access_token.refresh_token
+            return {
+                "access_token": f"{access_token}",
+                "refresh_token": f"{refresh_token}",
+            }
+        return 403, "Invalid password. Try again"
+    except User.DoesNotExist:
+        return 404, "User not found"
+
+
+@router.get("/{id}", response={200: schemas.UserOut, 404: str})
 def get_user(request, id: str):
     try:
         return User.objects.get(id=id)
     except User.DoesNotExist:
-        return 404, None
+        return 404, "User not found"
 
 
 @router.post("/address/add", response=schemas.AddressInOut)

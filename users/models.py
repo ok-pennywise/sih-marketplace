@@ -2,6 +2,7 @@ from datetime import datetime, date
 from django.db import models
 
 from model_utils import aware_utcnow, generate_id
+from django.contrib.auth.hashers import check_password
 from . import managers
 
 
@@ -20,13 +21,16 @@ class User(models.Model):
     FARMER: str = "farmer"
 
     USER_TYPE_CHOICES: tuple[tuple[str, str]] = ((BUYER, "Buyer"), (FARMER, "Farmer"))
-    
+
     user_type: str = models.CharField(
         max_length=10, choices=USER_TYPE_CHOICES, default=BUYER
     )
 
     date_of_birth: date = models.DateField()
     farm_name: str = models.CharField(max_length=256, blank=True, null=True)
+
+    def verify_password(self, password: str) -> bool:
+        return check_password(password, self.password)
 
     objects = managers.UserManager()
 
