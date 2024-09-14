@@ -1,5 +1,6 @@
 from ninja import Router
 from ninja.responses import codes_4xx
+from security.authentication import GeneralAccessAuthorization
 from security.keys import AccessToken
 from users import schemas
 from users.models import Address, User
@@ -38,12 +39,28 @@ def get_user(request, id: str):
         return 404, "User not found"
 
 
-@router.post("/address/add", response=schemas.AddressInOut)
+@router.get(
+    "/", response={200: schemas.UserOut, 404: str}, auth=GeneralAccessAuthorization()
+)
+def get_self(request):
+    try:
+        return User.objects.get(id=request.user_id)
+    except User.DoesNotExist:
+        return 404, "User not found"
+
+
+@router.post(
+    "/address/add", response=schemas.AddressInOut, auth=GeneralAccessAuthorization()
+)
 def add_address(request, payload: schemas.AddressInOut):
     return Address(**payload.dict())
 
 
-@router.delete("/address/delete/{id}", response={200: None, 404: None})
+@router.delete(
+    "/address/delete/{id}",
+    response={200: None, 404: None},
+    auth=GeneralAccessAuthorization(),
+)
 def delete_address(request, id: str):
     try:
         return Address.objects.get(id=id).delete()
