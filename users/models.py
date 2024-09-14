@@ -13,6 +13,8 @@ class User(models.Model):
     email: str = models.CharField(max_length=256, unique=True)
     phone: str = models.CharField(max_length=20, unique=True)
 
+    full_name: str = models.CharField(max_length=256)
+
     date_joined: datetime = models.DateTimeField(default=aware_utcnow, editable=False)
 
     password: str = models.CharField(max_length=128)
