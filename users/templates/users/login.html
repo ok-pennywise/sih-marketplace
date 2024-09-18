@@ -9,9 +9,17 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
-    <div class="company-name">
-        <h1>AssuredHarvest</h1> 
+       {% if messages %}
+    {% for message in messages %}
+    <div class="success-message">
+        {{message}}
+        <span class="icon">✔️</span>
     </div>
+    {% endfor %}
+    {% endif %}
+    
+    <img class="company-logo" src="{% static 'users/assets/img/logo.png' %}" alt="Farmify" class="medium-logo" style="height: auto; width: 150px;">
+
     <div class="wrapper">
         <input type="hidden" name="access_key" value="5e89ae33-2978-43fb-b269-80977bd6bec8">
         <input type="hidden" name="redirect" value="contact-thankyou-page">

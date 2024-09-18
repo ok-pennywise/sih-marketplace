@@ -21,11 +21,12 @@ from django.contrib.auth.views import LoginView, LogoutView
 from users import views as user_views
 
 urlpatterns = [
+    path("", user_views.home, name="home"),
     path("admin/", admin.site.urls),
     path("register/", user_views.register_user, name="register"),
     path("login/", LoginView.as_view(template_name="users/login.html"), name="login"),
     path(
         "logout/", LogoutView.as_view(template_name="users/logout.html"), name="logout"
     ),
-    path("", user_views.dashboard, name="home"),
+    path("about/", user_views.about, name="about"),
 ]
