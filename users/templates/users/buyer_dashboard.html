@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{request.user.full_name}}'s Dashboard</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'users/buyer_dashboard.css' %}">
+</head>
+<body>
+  <div class="sidebar">
+    <h2>Dashboard</h2>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#account">Account</a></li>
+      <li><a href="#analytics">Analytics</a></li>
+      <li><a href="#message">Message Admin</a></li>
+      <li><a href="#logout">Logout</a></li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <!-- Home Section -->
+    <section id="home">
+      <h1>Hello, {{request.user.full_name}}</h1>
+      <p>Welcome to your dashboard. You can buy new products, manage your cart, and view your order history.</p>
+    </section>
+
+    <!-- Recent Orders Section -->
+    <section id="recent-orders">
+      <h1>Recent Orders</h1>
+      <ul id="recentOrderList">
+        <li>No recent orders</li>
+      </ul>
+    </section>
+
+    <!-- Order History Section -->
+    <section id="order-history">
+      <h1>Order History</h1>
+      <ul id="orderHistoryList">
+        <li>No order history</li>
+      </ul>
+    </section>
+
+    <!-- Buy New Product Section -->
+    <section id="buy-new-product">
+      <h1>Buy New Products</h1>
+      <div class="product-list">
+        <div class="product">
+          <h3>Product 1</h3>
+          <button class="add-to-cart" data-product="Product 1">Add to Cart</button>
+        </div>
+        <div class="product">
+          <h3>Product 2</h3>
+          <button class="add-to-cart" data-product="Product 2">Add to Cart</button>
+        </div>
+        <div class="product">
+          <h3>Product 3</h3>
+          <button class="add-to-cart" data-product="Product 3">Add to Cart</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cart Section -->
+    <section id="cart">
+      <h1>Your Cart</h1>
+      <ul id="cartItems">
+        <li>No items in the cart</li>
+      </ul>
+      <button id="clearCart">Clear Cart</button>
+    </section>
+
+    <!-- Message Admin Section -->
+    <section id="message">
+      <h1>Message Admin</h1>
+      <form id="messageForm">
+        <label for="messageContent">Your Message:</label>
+        <textarea id="messageContent" placeholder="Write your message here..."></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+    </section>
+
+    <!-- Logout Section -->
+       <section id="logout">
+      <h1>Logout</h1>
+             <form method="post" action="{% url 'logout' %}"></form>
+    {% csrf_token %}
+    <button type="submit">logout</button>
+</form>
+    </section>
+  </div>
+
+  <script src="b_dashboard.js"></script>
+</body>
+</html>

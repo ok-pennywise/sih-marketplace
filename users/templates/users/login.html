@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login page</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'users/auth.css' %}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <div class="company-name">
+        <h1>AssuredHarvest</h1> 
+    </div>
+    <div class="wrapper">
+        <input type="hidden" name="access_key" value="5e89ae33-2978-43fb-b269-80977bd6bec8">
+        <input type="hidden" name="redirect" value="contact-thankyou-page">
+        <input type="hidden" name="subject" value="Hey Monish New feedback for your website">
+        
+        <h2>Login to access your dashboard</h2>
+        
+        <form method="post" action="">
+            {% csrf_token %}
+
+            {% for error in form.non_field_errors %}
+            <div class="error">{{ error }}</div>
+        {% endfor %} 
+
+            <div class="input-box">
+                <input type="email" name="{{ form.username.name }}" id="{{ form.username.id }}" placeholder="Email address" required>
+                <i class='bx bxs-envelope'></i>
+            </div>
+
+            {% for error in form.username.errors %}
+                <div class="error">{{ error }}</div>
+            {% endfor %}
+            
+            <div class="input-box">
+                <input type="password" name="{{ form.password.name }}" id="{{ form.password.id }}" placeholder="Password" required>
+                <i class='bx bx-lock-alt'></i>
+            </div>
+
+            {% for error in form.password.errors %}
+                <div class="error">{{ error }}</div>
+            {% endfor %}
+
+            <button type="submit" class="btn">Login</button>
+        </form>
+        
+        <div class="register-link">
+            <p>Don't have an account? <a href="{% url 'register' %}">Register now</a></p>
+        </div>
+    </div>
+
+    <script>
+        // Add any JavaScript here
+    </script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    min-height: 100vh;
+    background-color: #e5fcd9;
+  }
+  
+  .sidebar {
+    width: 250px;
+    background-color: #116530;
+    padding: 20px;
+    color: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+  }
+  
+  .sidebar h2 {
+    margin-bottom: 20px;
+  }
+  
+  .sidebar ul {
+    list-style: none;
+    font-weight: 400;
+    font-size: 20px;
+  }
+  
+  .sidebar ul li {
+    margin: 15px 0;
+  }
+  
+  .sidebar ul li a {
+    color: #fff;
+    text-decoration: none;
+
+  }
+  
+  .sidebar ul li a:hover {
+    text-decoration: underline;
+  }
+  
+  .main-content {
+    margin-left: 250px;
+    padding: 20px;
+    flex-grow: 1;
+  }
+  
+  section {
+    margin-bottom: 50px;
+  }
+  
+  h1 {
+    margin-bottom: 20px;
+  }
+  
+  .profit-container {
+    background-color: #ddd;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  form label {
+    margin-top: 10px;
+  }
+  
+  form input, form textarea {
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  form button {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #399da9;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  form button:hover {
+    background-color: #4cae4c;
+  }
+  
+  /* Responsive design for iPhone screen */
+  @media screen and (max-width: 768px) {
+    .sidebar {
+      width: 100px;
+      text-align: center;
+    }
+  
+    .sidebar ul li {
+      margin: 10px 0;
+    }
+  
+    .sidebar ul li a {
+      font-size: 14px;
+    }
+  
+    .main-content {
+      margin-left: 100px;
+      padding: 15px;
+    }
+  
+    form input, form textarea {
+      width: 100%;
+      padding: 8px;
+    }
+  
+    form button {
+      padding: 8px;
+    }
+  }
+  #logoutButton{
+    position: absolute;
+    font-size: large;
+    padding: 5px 15px ;
+    border-radius: 5px;
+    color: red;
+  }

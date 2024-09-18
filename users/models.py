@@ -4,11 +4,14 @@ from django.db import models
 from model_utils import aware_utcnow, generate_id
 from django.contrib.auth.hashers import check_password
 from . import managers
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 
 
 # Create your models here.
-class User(models.Model):
-    id: str = models.CharField(max_length=20, default=generate_id, primary_key=True)
+class User(AbstractBaseUser, PermissionsMixin):
+    id: str = models.CharField(
+        max_length=20, default=generate_id, primary_key=True, editable=False
+    )
 
     email: str = models.CharField(max_length=256, unique=True)
     phone: str = models.CharField(max_length=20, unique=True)
@@ -21,8 +24,13 @@ class User(models.Model):
 
     BUYER: str = "buyer"
     FARMER: str = "farmer"
+    ADMIN: str = "admin"
 
-    USER_TYPE_CHOICES: tuple[tuple[str, str]] = ((BUYER, "Buyer"), (FARMER, "Farmer"))
+    USER_TYPE_CHOICES: tuple[tuple[str, str]] = (
+        (BUYER, "Buyer"),
+        (FARMER, "Farmer"),
+        (ADMIN, "Admin"),
+    )
 
     user_type: str = models.CharField(
         max_length=10, choices=USER_TYPE_CHOICES, default=BUYER
@@ -31,10 +39,18 @@ class User(models.Model):
     date_of_birth: date = models.DateField()
     farm_name: str = models.CharField(max_length=256, blank=True, null=True)
 
-    def verify_password(self, password: str) -> bool:
-        return check_password(password, self.password)
+    is_active: bool = models.BooleanField(default=True)
+
+    is_staff: bool = models.BooleanField(default=False)
+    is_superuser: bool = models.BooleanField(default=False)
+
+    USERNAME_FIELD: str = "email"
+    REQUIRED_FIELDS: tuple[str] = ("phone", "full_name", "date_of_birth")
 
     objects = managers.UserManager()
+
+    def verify_password(self, password: str) -> bool:
+        return check_password(password, self.password)
 
 
 class Address(models.Model):
