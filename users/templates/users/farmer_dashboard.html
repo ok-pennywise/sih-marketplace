@@ -83,9 +83,10 @@
 
     <section id="logout">
       <h1>Logout</h1>
-             <form method="post" action="{% url 'logout' %}"></form>
-    {% csrf_token %}
+             <form method="post" action="{% url 'logout' %}">
+              {% csrf_token %}
     <button type="submit">logout</button>
+             </form>
 </form>
     </section>
   </div>
