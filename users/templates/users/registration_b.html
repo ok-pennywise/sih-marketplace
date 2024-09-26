@@ -1,11 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Farmer Registration Form</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration page</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'users/auth.css' %}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
-    <h2>Farmer Sign-Up Form</h2>
-    <form>
+    <img class="company-logo" src="{% static 'users/assets/img/logo.png' %}" alt="Farmify" class="medium-logo" style="height: auto; width: 150px;">
+    <div class="wrapper">
+        <h2>Join us today</h2>
+        <form></form>
         <fieldset>
             <legend>1. Personal Information</legend>
             <label for="first_name">First Name (Mandatory):</label>
@@ -118,5 +125,75 @@
         <input type="submit" value="Submit">
         <input type="reset" value="Reset">
     </form>
+        
+        <!-- <form method="post" action="">
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+            <div class="error">{{ form.non_field_errors }}</div>
+        {% endif %} 
+            
+            <div class="input-box">
+                <input type="text" name="{{ form.full_name.name }}" id="{{ form.full_name.id }}" placeholder="Full name" required>
+                <i class='bx bxs-user'></i>
+            </div>
+             {% for error in form.full_name.errors %}
+                <div class="error">{{ error }}</div>
+            {% endfor %}
+            
+            <div class="input-box">
+                <input type="email" name="{{ form.email.name }}" id="{{ form.email.id }}" placeholder="Email address" required>
+                <i class='bx bxs-envelope'></i>
+            </div>
+             {% for error in form.email.errors %}
+                <div class="error">{{ error }}</div>
+            {% endfor %}
+
+            
+            <div class="input-box">
+                <input type="number" name="{{ form.phone.name }}" id="{{ form.phone.id }}" placeholder="Phone number" required>
+                <i class='bx bxs-phone'></i>
+            </div>
+             {% for error in form.phone.errors %}
+                <div class="error">{{ error }}</div>
+            {% endfor %}
+            
+            <div class="input-box">
+                <input type="password" name="{{ form.password.name }}" id="{{ form.password.id }}" placeholder="Password" required>
+                <i class='bx bx-lock-alt'></i>
+            </div>
+             {% for error in form.password.errors %}
+                <div class="error">{{ error }}</div>
+            {% endfor %}
+            
+            <div class="input-box">
+                <input type="date" placeholder="Date of Birth (YYYY-MM-DD)" name="{{form.date_of_birth.name}}" id="{{form.date_of_birth.id}}" required>
+            </div>
+             {% for error in form.date_of_birth.errors %}
+                <div class="error">{{ error }}</div>
+            {% endfor %}
+
+            <div class="input-box">
+                <label for="choice">Select User Type:</label>
+                <select name="{{ form.user_type.name }}" id="{{ form.user_type.id }}" required>
+                    {% for value, label in form.user_type.field.choices %}
+                        <option value="{{ value }}" {% if value == form.user_type.value %}selected{% endif %}>
+                            {{ label }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <button type="submit" class="btn">Join now</button>
+        </form> -->
+        
+        <div class="register-link">
+             <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+        </div>
+    </div>
+
+    <script>
+        // Add any JavaScript here
+    </script>
 </body>
 </html>
