@@ -2,10 +2,12 @@
 <html>
 <head>
     <title>Farmer Registration Form</title>
+     {% load static %}
+    <link rel="stylesheet" href="{% static 'users/new.css' %}">
 </head>
 <body>
     <h2>Farmer Sign-Up Form</h2>
-    <form>
+    <form class="form-container">
         <fieldset>
             <legend>1. Personal Information</legend>
             <label for="first_name">First Name (Mandatory):</label>
